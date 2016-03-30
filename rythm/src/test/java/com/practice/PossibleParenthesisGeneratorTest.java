@@ -9,6 +9,6 @@ public class PossibleParenthesisGeneratorTest {
 	@Test
 	public void validTest1() {
 		PossibleParenthesisGenerator gen = new PossibleParenthesisGenerator();
-		gen.print(2);
+		gen.print(3);
 	}
 }

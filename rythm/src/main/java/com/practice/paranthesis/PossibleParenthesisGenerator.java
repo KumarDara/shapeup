@@ -2,25 +2,25 @@ package com.practice.paranthesis;
 
 public class PossibleParenthesisGenerator {
 
-	private void par(int n, int open, int closed, String str) {
+	private void par(int open, int closed, String str) {
 
-		if (closed == n) {
+		if (closed == 0) {
 			System.out.println(str);
 			return;
 		}
 
-		if (open < n) {
-			par(n, open + 1, closed, str + "{");
+		if (open > 0) {
+			par(open - 1, closed, str + "{");
 		}
 
-		if (closed < open) {
-			par(n, open, closed + 1, str + "}");
+		if (closed > open) {
+			par(open, closed - 1, str + "}");
 		}
 	}
 
 	public void print(int n) {
 
-		par(n, 0, 0, "");
+		par(n, n, "");
 
 	}
 
