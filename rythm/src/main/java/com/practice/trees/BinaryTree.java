@@ -28,7 +28,7 @@ public class BinaryTree {
 		return list;
 	}
 
-	// Helps to preorder traverse through the tree
+	// Helps to preorder(V-L-R) traverse through the tree
 	private void preOrderTraverse(Node node, List<Integer> list) {
 		if (node != null) {
 			// Adds the Visit
@@ -40,25 +40,25 @@ public class BinaryTree {
 		}
 	}
 
-	// Helps to inorder traverse through the tree
+	// Helps to inorder(L-V-R) traverse through the tree
 	private void inOrderTraverse(Node node, List<Integer> list) {
 		if (node != null) {
 			// Traverse to the left if exists
-			preOrderTraverse(node.left, list);
+			inOrderTraverse(node.left, list);
 			// Adds the Visit
 			list.add(node.key);
 			// Traverse to the right if exists
-			preOrderTraverse(node.right, list);
+			inOrderTraverse(node.right, list);
 		}
 	}
 
-	// Helps to postorder traverse through the tree
+	// Helps to postorder(L-R-V) traverse through the tree
 	private void postOrderTraverse(Node node, List<Integer> list) {
 		if (node != null) {
 			// Traverse to the left if exists
-			preOrderTraverse(node.left, list);
+			postOrderTraverse(node.left, list);
 			// Traverse to the right if exists
-			preOrderTraverse(node.right, list);
+			postOrderTraverse(node.right, list);
 			// Adds the Visit
 			list.add(node.key);
 

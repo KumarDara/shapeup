@@ -43,6 +43,17 @@ public class LinkedListTasksTest {
 		ListNode<Integer> six = new ListNode<Integer>(6);
 		list.insertAtEnd(six);
 		tasks.swapOddEvenPositions(list);
+
+		head.setRandom(four);
+		two.setRandom(five);
+		three.setRandom(six);
+		four.setRandom(three);
+		// five.setRandom(head);
+		six.setRandom(two);
 		System.out.println(list);
+		SingleLinkedList<Integer> newList = tasks.copyRandomPointer(list);
+		System.out.println(newList);
+		SingleLinkedList<Integer> newListMap = tasks.copyRandomPointerUsingMap(list);
+		System.out.println(newListMap);
 	}
 }

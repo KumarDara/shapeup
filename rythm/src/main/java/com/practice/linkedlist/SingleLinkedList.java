@@ -148,7 +148,11 @@ public class SingleLinkedList<T> {
 		if (this.getHead() != null) {
 			ListNode<T> tmpNode = this.getHead();
 			while (tmpNode != null) {
-				tmp.append(tmpNode.getData()).append(", ");
+				if(tmpNode.getRandom() != null) {
+					tmp.append(tmpNode.getData()).append("(").append(tmpNode.getRandom().getData()).append("), ");
+				} else {
+					tmp.append(tmpNode.getData()).append("(), ");
+				}
 				tmpNode = tmpNode.getNext();
 			}
 		}

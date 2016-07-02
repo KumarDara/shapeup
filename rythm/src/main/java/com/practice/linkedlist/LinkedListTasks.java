@@ -1,5 +1,9 @@
 package com.practice.linkedlist;
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
 public class LinkedListTasks {
 
 	/**
@@ -133,5 +137,73 @@ public class LinkedListTasks {
 				current = current.getNext();
 			}
 		}
+	}
+
+	public <T> SingleLinkedList<T> copyRandomPointerUsingMap(SingleLinkedList<T> list) {
+		if (list == null) {
+			return null;
+		}
+		SingleLinkedList<T> newList = new SingleLinkedList<>();
+		Map<ListNode<T>, ListNode<T>> nodesMap = new HashMap<>();
+		ListNode<T> currNode = list.getHead();
+		ListNode<T> prev = null;
+		while (currNode != null) {
+			ListNode<T> newNode = new ListNode<T>(currNode.getData());
+			if (prev == null) {
+				newList.setHead(newNode);
+			} else {
+				prev.setNext(newNode);
+			}
+			nodesMap.put(currNode, newNode);
+			prev = newNode;
+			currNode = currNode.getNext();
+		}
+		Iterator<ListNode<T>> itr = nodesMap.keySet().iterator();
+		while (itr.hasNext()) {
+			ListNode<T> oldNode = itr.next();
+			ListNode<T> newNode = nodesMap.get(oldNode);
+			newNode.setRandom(nodesMap.get(oldNode.getRandom()));
+		}
+		return newList;
+	}
+
+	public <T> SingleLinkedList<T> copyRandomPointer(SingleLinkedList<T> list) {
+		if (list == null) {
+			return null;
+		}
+		SingleLinkedList<T> newList = new SingleLinkedList<>();
+		ListNode<T> currNode = list.getHead();
+		ListNode<T> next = null;
+		// iterating through the list and creating a copy of every node and
+		// inserting it after the current node
+		while (currNode != null) {
+			ListNode<T> newNode = new ListNode<T>(currNode.getData());
+			next = currNode.getNext();
+			currNode.setNext(newNode);
+			newNode.setNext(next);
+			currNode = next;
+		}
+		currNode = list.getHead();
+		// iterating through the updated list and updating the random pointers
+		while (currNode != null) {
+			ListNode<T> copyNode = currNode.getNext();
+			if (currNode.getRandom() != null) {
+				copyNode.setRandom(currNode.getRandom().getNext());
+			}
+			currNode = currNode.getNext().getNext();
+		}
+		currNode = list.getHead();
+		ListNode<T> newNode = currNode.getNext();
+		newList.setHead(newNode);
+		// unlinking the pointers between old and new nodes
+		while (newNode != null) {
+			currNode.setNext(currNode.getNext().getNext());
+			if (newNode.getNext() != null) {
+				newNode.setNext(newNode.getNext().getNext());
+			}
+			currNode = currNode.getNext();
+			newNode = newNode.getNext();
+		}
+		return newList;
 	}
 }
